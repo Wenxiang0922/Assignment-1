@@ -99,11 +99,13 @@ public sealed class RecipeManager : IRecipeManager
 
     public IReadOnlyList<string> GetShoppingList()
     {
-        
+        return shoppingList.AsReadOnly();
     }
 
-    public void ClearShoppingList() =>
-        throw new NotImplementedException("Part A: implement ClearShoppingList.");
+    public void ClearShoppingList()
+    {
+        shoppingList.Clear();
+    }
 
     public bool AddRecipeToCookingPlan(int recipeId) =>
         throw new NotImplementedException("Part A: implement AddRecipeToCookingPlan.");
