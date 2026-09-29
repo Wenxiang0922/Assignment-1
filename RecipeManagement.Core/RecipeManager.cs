@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualBasic;
 
 namespace RecipeManagement.Core;
 
@@ -13,6 +14,17 @@ public sealed class RecipeManager : IRecipeManager
 {
     // TODO Part A: add your private collection fields here.
     private Dictionary<int,Recipe> _recipe = new Dictionary<int, Recipe>();
+    private List<string> _ShoppingList = new List<string>();
+
+
+    //Properties
+    public Dictionary<int, Recipe> recipe
+    {
+        get {return _recipe;}
+        set { _recipe = value;}
+    }
+
+
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
@@ -31,19 +43,46 @@ public sealed class RecipeManager : IRecipeManager
     public int RemovedRecipeCount => 0;
 
     public bool AddRecipe(Recipe recipe)
-    {
-        return _recipe.TryAdd(recipe.Id,recipe);
+    {   
+        // Don take the recipe if the recipe is already in the _recipe dictionary
+        if (_recipe.ContainsKey(recipe.Id))
+        {
+            return false;
+        }
+        else
+        {   
+            // add a recipe that have a valid id 
+            return _recipe.TryAdd(recipe.Id,recipe);
+        }
     }
+
+
     public Recipe? FindRecipe(int recipeId)
     {
-        return _recipe[recipeId+1];
+        return _recipe[recipeId];
     }
 
 
     public bool RemoveRecipe(int recipeId) 
     {   
-        // Recipe RemoveItem = _recipe
-        return _recipe.Remove(recipeId);
+        // remove the object if the recipeId was found in the list
+        if (_recipe.ContainsKey(recipeId))
+        {   
+            // // handle missing recipe IDs 
+            // foreach (var id in _recipe)
+            // {   
+            //     if (id.Key > recipeId)
+            //     {
+            //         id.Value = id.Key - 1;
+            //     }
+            // }
+            return _recipe.Remove(recipeId);
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 
