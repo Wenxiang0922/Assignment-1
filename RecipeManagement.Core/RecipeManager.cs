@@ -89,6 +89,11 @@ public sealed class RecipeManager : IRecipeManager
 
     public int AddIngredientsToShoppingList(int recipeId)
     {   
+        // Handle not avaliable recipe ids
+        if (_recipe.TryGetValue(recipeId, out Recipe? recipe))
+        {
+            return 0;
+        }
         // add every ingredients for that recipe in order
         foreach (var items in _recipe[recipeId].Ingredients)
         {
