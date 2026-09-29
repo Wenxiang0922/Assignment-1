@@ -15,7 +15,7 @@ public sealed class RecipeManager : IRecipeManager
     // TODO Part A: add your private collection fields here.
     private Dictionary<int,Recipe> _recipe = new Dictionary<int, Recipe>();
     private List<string> _ShoppingList = new List<string>();
-
+    private LinkedList<int> _CookingPlan = new LinkedList<int>();
 
     //Properties
     public Dictionary<int, Recipe> recipe 
@@ -40,8 +40,8 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public int RecipeCount => 0;
-    public int ShoppingItemCount => 0;
+    public int RecipeCount => _recipe.Count;
+    public int ShoppingItemCount => _ShoppingList.Count;
     public int CookingPlanCount => 0;
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
@@ -70,14 +70,6 @@ public sealed class RecipeManager : IRecipeManager
         // remove the object if the recipeId was found in the list
         if (_recipe.ContainsKey(recipeId))
         {   
-            // // handle missing recipe IDs 
-            // foreach (var id in _recipe)
-            // {   
-            //     if (id.Key > recipeId)
-            //     {
-            //         id.Value = id.Key - 1;
-            //     }
-            // }
             return _recipe.Remove(recipeId);
         }
         else
@@ -89,27 +81,22 @@ public sealed class RecipeManager : IRecipeManager
 
     public int AddIngredientsToShoppingList(int recipeId)
     {   
-        // Handle not avaliable recipe ids
-        if (_recipe.TryGetValue(recipeId, out Recipe? recipe))
-        {
-            return 0;
-        }
         // add every ingredients for that recipe in order
         foreach (var items in _recipe[recipeId].Ingredients)
         {
-            shoppingList.Add(items);
+            _ShoppingList.Add(items);
         }
-        return shoppingList.Count;
+        return _ShoppingList.Count;
     }
 
     public IReadOnlyList<string> GetShoppingList()
     {
-        return shoppingList.AsReadOnly();
+        return _ShoppingList.AsReadOnly();
     }
 
     public void ClearShoppingList()
     {
-        shoppingList.Clear();
+        _ShoppingList.Clear();
     }
 
     public bool AddRecipeToCookingPlan(int recipeId) =>

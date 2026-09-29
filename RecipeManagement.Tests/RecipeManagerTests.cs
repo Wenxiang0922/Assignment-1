@@ -8,6 +8,58 @@ namespace RecipeManagement.Tests;
 /// </summary>
 public sealed class RecipeManagerTests
 {
+    // my own tests
+    [Fact]
+    public void AddRecipeThatIsIDIsValid()
+    {
+        var manager =CreateManager();
+        var recipe =new Recipe
+        {
+            Id = 30,
+            Title = "recipe C"
+        };
+        Assert.True(manager.AddRecipe(recipe));
+        Assert.Equal(3,manager.RecipeCount);
+        Assert.Equal("recipe C",manager.FindRecipe(30)?.Title);
+    }
+
+    [Fact]
+    public void AddRecipeRejected()
+    {
+        var manager =CreateManager();
+        var recipe =new Recipe
+        {
+            Id = 10,
+            Title = "recipe C"
+        }; 
+        Assert.False(manager.AddRecipe(recipe));
+        Assert.Equal("Recipe A", manager.FindRecipe(10)?.Title);
+    }
+
+    [Fact]
+    public void FindRecipeWithId()
+    {
+        var manager =CreateManager();
+        Assert.Equal("Recipe A", manager.FindRecipe(10)?.Title); 
+    }
+
+    [Fact]
+    public void RemoveAnRecipe()
+    {
+        var manager =CreateManager();
+        Assert.True(manager.RemoveRecipe(10));
+        Assert.Equal(1,manager.RecipeCount);
+    }
+
+        [Fact]
+    public void UnableToRemoveAnUnIdenifiedRecipe()
+    {
+        var manager = CreateManager();
+        Assert.False(manager.RemoveRecipe(9999));
+        Assert.Equal(2,manager.RecipeCount);
+    }
+
+    // Provided tests
     [Fact]
     public void Constructor_BuildsRecipeDictionary()
     {
@@ -57,4 +109,5 @@ public sealed class RecipeManagerTests
             }
         });
     }
+
 }
