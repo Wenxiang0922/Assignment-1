@@ -18,12 +18,16 @@ public sealed class RecipeManager : IRecipeManager
 
 
     //Properties
-    public Dictionary<int, Recipe> recipe
+    public Dictionary<int, Recipe> recipe 
     {
-        get {return _recipe;}
+        get {return _recipe;}  
         set { _recipe = value;}
     }
-
+    public List<string> shoppingList
+    {
+        get {return _ShoppingList;}  
+        set { _ShoppingList = value;}
+    }
 
 
     public RecipeManager(IEnumerable<Recipe> recipes)
@@ -56,12 +60,10 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-
     public Recipe? FindRecipe(int recipeId)
     {
         return _recipe[recipeId];
     }
-
 
     public bool RemoveRecipe(int recipeId) 
     {   
@@ -85,12 +87,20 @@ public sealed class RecipeManager : IRecipeManager
 
     }
 
+    public int AddIngredientsToShoppingList(int recipeId)
+    {   
+        // add every ingredients for that recipe in order
+        foreach (var items in _recipe[recipeId].Ingredients)
+        {
+            shoppingList.Add(items);
+        }
+        return shoppingList.Count;
+    }
 
-    public int AddIngredientsToShoppingList(int recipeId) =>
-        throw new NotImplementedException("Part A: implement AddIngredientsToShoppingList.");
-
-    public IReadOnlyList<string> GetShoppingList() =>
-        throw new NotImplementedException("Part A: implement GetShoppingList.");
+    public IReadOnlyList<string> GetShoppingList()
+    {
+        
+    }
 
     public void ClearShoppingList() =>
         throw new NotImplementedException("Part A: implement ClearShoppingList.");
