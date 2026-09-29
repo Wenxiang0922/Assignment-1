@@ -29,6 +29,11 @@ public sealed class RecipeManager : IRecipeManager
         set { _ShoppingList = value;}
     }
 
+    public LinkedList<int> cookingPlan
+    {
+        get {return _CookingPlan;}  
+        set { _CookingPlan = value;}
+    }
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
@@ -99,11 +104,32 @@ public sealed class RecipeManager : IRecipeManager
         _ShoppingList.Clear();
     }
 
-    public bool AddRecipeToCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement AddRecipeToCookingPlan.");
+    public bool AddRecipeToCookingPlan(int recipeId)
+    {    
+        if (_recipe.ContainsKey(recipeId))
+        {   
+            _CookingPlan.AddLast(recipeId);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-    public bool RemoveRecipeFromCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipeFromCookingPlan.");
+
+    public bool RemoveRecipeFromCookingPlan(int recipeId)
+    {
+        if (!_CookingPlan.Contains(recipeId))
+        {   
+            _CookingPlan.Remove(recipeId);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public bool RestoreLastRemovedRecipe() =>
         throw new NotImplementedException("Part A: implement RestoreLastRemovedRecipe.");
@@ -111,8 +137,10 @@ public sealed class RecipeManager : IRecipeManager
     public int? PeekLastRemovedRecipe() =>
         throw new NotImplementedException("Part A: implement PeekLastRemovedRecipe.");
 
-    public IReadOnlyList<int> GetCookingPlan() =>
-        throw new NotImplementedException("Part A: implement GetCookingPlan.");
+    public IReadOnlyList<int> GetCookingPlan()
+    {
+        return _CookingPlan.ToList();
+    }
 
     public bool StartCooking(int recipeId) =>
         throw new NotImplementedException("Part A: implement StartCooking.");
