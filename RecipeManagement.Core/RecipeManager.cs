@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace RecipeManagement.Core;
 
@@ -11,11 +12,16 @@ namespace RecipeManagement.Core;
 public sealed class RecipeManager : IRecipeManager
 {
     // TODO Part A: add your private collection fields here.
+    private Dictionary<int,Recipe> _recipe = new Dictionary<int, Recipe>();
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
         _ = recipes;
+        foreach (Recipe r in recipes)
+        {
+            _recipe.Add(r.Id,r);
+        }
     }
 
     public int RecipeCount => 0;
@@ -24,14 +30,22 @@ public sealed class RecipeManager : IRecipeManager
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
 
-    public bool AddRecipe(Recipe recipe) =>
-        throw new NotImplementedException("Part A: implement AddRecipe.");
+    public bool AddRecipe(Recipe recipe)
+    {
+        return _recipe.TryAdd(recipe.Id,recipe);
+    }
+    public Recipe? FindRecipe(int recipeId)
+    {
+        return _recipe[recipeId+1];
+    }
 
-    public Recipe? FindRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement FindRecipe.");
 
-    public bool RemoveRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipe.");
+    public bool RemoveRecipe(int recipeId) 
+    {   
+        // Recipe RemoveItem = _recipe
+        return _recipe.Remove(recipeId);
+    }
+
 
     public int AddIngredientsToShoppingList(int recipeId) =>
         throw new NotImplementedException("Part A: implement AddIngredientsToShoppingList.");
