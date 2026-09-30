@@ -16,7 +16,7 @@ public sealed class RecipeManager : IRecipeManager
     private Dictionary<int,Recipe> _recipe = new Dictionary<int, Recipe>();
     private List<string> _ShoppingList = new List<string>();
     private LinkedList<int> _CookingPlan = new LinkedList<int>();
-   
+    private Stack<int> _RemovedCookingRecipes = new Stack<int>();
 
 
     //Properties
@@ -35,6 +35,12 @@ public sealed class RecipeManager : IRecipeManager
     {
         get {return _CookingPlan;}  
         set { _CookingPlan = value;}
+    }
+
+        public Stack<int> removedCookingRecipes
+    {
+        get {return _RemovedCookingRecipes;}  
+        set { _RemovedCookingRecipes = value;}
     }
 
     public RecipeManager(IEnumerable<Recipe> recipes)
