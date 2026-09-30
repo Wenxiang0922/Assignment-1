@@ -171,8 +171,18 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public int? PeekLastRemovedRecipe() =>
-        throw new NotImplementedException("Part A: implement PeekLastRemovedRecipe.");
+    public int? PeekLastRemovedRecipe()
+    {
+        // check if the stack list is empty
+        if (_RemovedCookingRecipes.Count > 0)
+        {
+            return _RemovedCookingRecipes.Peek();
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public IReadOnlyList<int> GetCookingPlan()
     {
