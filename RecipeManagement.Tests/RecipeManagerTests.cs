@@ -49,6 +49,7 @@ public sealed class RecipeManagerTests
     {
         var manager =CreateManager();
         Assert.True(manager.RemoveRecipe(10));
+        Assert.Equal(1,manager.RemovedRecipeCount);
         Assert.Equal(1,manager.RecipeCount);
     }
 
@@ -57,6 +58,7 @@ public sealed class RecipeManagerTests
     {
         var manager = CreateManager();
         Assert.False(manager.RemoveRecipe(9999));
+        Assert.Equal(0,manager.RemovedRecipeCount);
         Assert.Equal(2,manager.RecipeCount);
     }
 

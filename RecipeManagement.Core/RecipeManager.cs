@@ -21,11 +21,6 @@ public sealed class RecipeManager : IRecipeManager
     private Queue<string> _PendingInstructions = new Queue<string>();
 
     //Properties
-    public Dictionary<int, Recipe> recipe 
-    {
-        get {return _recipe;}  
-        set { _recipe = value;}
-    }
     public List<string> shoppingList
     {
         get {return _ShoppingList;}  
@@ -38,11 +33,6 @@ public sealed class RecipeManager : IRecipeManager
         set { _CookingPlan = value;}
     }
 
-    public Stack<int> removedCookingRecipes
-    {
-        get {return _RemovedCookingRecipes;}  
-        set { _RemovedCookingRecipes = value;}
-    }
 
     public Queue<string> pendingInstructions
     {
