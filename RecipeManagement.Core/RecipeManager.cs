@@ -16,6 +16,8 @@ public sealed class RecipeManager : IRecipeManager
     private Dictionary<int,Recipe> _recipe = new Dictionary<int, Recipe>();
     private List<string> _ShoppingList = new List<string>();
     private LinkedList<int> _CookingPlan = new LinkedList<int>();
+   
+
 
     //Properties
     public Dictionary<int, Recipe> recipe 
@@ -106,10 +108,19 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool AddRecipeToCookingPlan(int recipeId)
     {    
+        // Check if id is valid
         if (_recipe.ContainsKey(recipeId))
         {   
-            _CookingPlan.AddLast(recipeId);
-            return true;
+            // reject repetetive cooking plan
+            if (_CookingPlan.Contains(recipeId))
+            {
+                return false;
+            }
+            else
+            {
+                _CookingPlan.AddLast(recipeId);
+                return true;  
+            }
         }
         else
         {
@@ -117,10 +128,10 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-
     public bool RemoveRecipeFromCookingPlan(int recipeId)
-    {
-        if (!_CookingPlan.Contains(recipeId))
+    {   
+        // Check if the _CookingPlan have recipe
+        if (_CookingPlan.Contains(recipeId))
         {   
             _CookingPlan.Remove(recipeId);
             return true;
