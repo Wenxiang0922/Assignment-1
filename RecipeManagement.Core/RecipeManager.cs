@@ -197,11 +197,25 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public string? PeekNextInstruction() =>
-        throw new NotImplementedException("Part A: implement PeekNextInstruction.");
+    public string? PeekNextInstruction()
+    {   
+        // check if the queue is empty
+        if (_PendingInstructions.Count > 0)
+        {
+            return _PendingInstructions.Peek();
+        }
+        return null;
+    }
 
-    public string? CompleteNextInstruction() =>
-        throw new NotImplementedException("Part A: implement CompleteNextInstruction.");
+    public string? CompleteNextInstruction()
+    {   
+        // requeue the oldest item if the queue list is not empty
+        if (_PendingInstructions.TryDequeue(out string? instruction))
+        {
+            return instruction;
+        }
+        return null;
+    }
 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText) =>
         throw new NotImplementedException("Part B: implement SearchByTitle.");
