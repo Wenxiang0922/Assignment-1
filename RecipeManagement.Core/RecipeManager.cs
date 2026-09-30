@@ -191,8 +191,8 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool StartCooking(int recipeId)
     {
-        // Check if the _CookingPlan have recipe
-        if (_CookingPlan.Contains(recipeId))
+        // Check if id is valid
+        if (_recipe.ContainsKey(recipeId))
         {   
             // Add each step of the instriction to the queue
             foreach (string instruction in _recipe[recipeId].Instructions)
