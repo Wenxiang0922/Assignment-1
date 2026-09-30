@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
 
 namespace RecipeManagement.Core;
@@ -17,7 +18,7 @@ public sealed class RecipeManager : IRecipeManager
     private List<string> _ShoppingList = new List<string>();
     private LinkedList<int> _CookingPlan = new LinkedList<int>();
     private Stack<int> _RemovedCookingRecipes = new Stack<int>();
-
+    private Queue<string> _PendingInstructions = new Queue<string>();
 
     //Properties
     public Dictionary<int, Recipe> recipe 
@@ -37,10 +38,16 @@ public sealed class RecipeManager : IRecipeManager
         set { _CookingPlan = value;}
     }
 
-        public Stack<int> removedCookingRecipes
+    public Stack<int> removedCookingRecipes
     {
         get {return _RemovedCookingRecipes;}  
         set { _RemovedCookingRecipes = value;}
+    }
+
+    public Queue<string> pendingInstructions
+    {
+        get {return _PendingInstructions;}  
+        set { _PendingInstructions = value;}
     }
 
     public RecipeManager(IEnumerable<Recipe> recipes)
@@ -55,9 +62,9 @@ public sealed class RecipeManager : IRecipeManager
 
     public int RecipeCount => _recipe.Count;
     public int ShoppingItemCount => _ShoppingList.Count;
-    public int CookingPlanCount => 0;
-    public int PendingInstructionCount => 0;
-    public int RemovedRecipeCount => 0;
+    public int CookingPlanCount => _CookingPlan.Count;
+    public int PendingInstructionCount => _PendingInstructions.Count;
+    public int RemovedRecipeCount => _RemovedCookingRecipes.Count;
 
     public bool AddRecipe(Recipe recipe)
     {   
@@ -162,8 +169,6 @@ public sealed class RecipeManager : IRecipeManager
         {
             return false;
         }
-
-
     }
 
     public int? PeekLastRemovedRecipe() =>
@@ -174,8 +179,23 @@ public sealed class RecipeManager : IRecipeManager
         return _CookingPlan.ToList();
     }
 
-    public bool StartCooking(int recipeId) =>
-        throw new NotImplementedException("Part A: implement StartCooking.");
+    public bool StartCooking(int recipeId)
+    {
+        // Check if the _CookingPlan have recipe
+        if (_CookingPlan.Contains(recipeId))
+        {   
+            // Add each step of the instriction to the queue
+            foreach (string instruction in _recipe[recipeId].Instructions)
+            {
+                _PendingInstructions.Enqueue(instruction);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public string? PeekNextInstruction() =>
         throw new NotImplementedException("Part A: implement PeekNextInstruction.");
