@@ -139,6 +139,8 @@ public sealed class RecipeManager : IRecipeManager
         // Check if the _CookingPlan have recipe
         if (_CookingPlan.Contains(recipeId))
         {   
+            // Add the removed ID to the top of the stack list
+            _RemovedCookingRecipes.Push(recipeId);
             _CookingPlan.Remove(recipeId);
             return true;
         }
@@ -148,8 +150,21 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public bool RestoreLastRemovedRecipe() =>
-        throw new NotImplementedException("Part A: implement RestoreLastRemovedRecipe.");
+    public bool RestoreLastRemovedRecipe()
+    {   
+        // check if the stack list is empty
+        if (_RemovedCookingRecipes.Count > 0)
+        {
+            _CookingPlan.AddLast(_RemovedCookingRecipes.Pop());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
 
     public int? PeekLastRemovedRecipe() =>
         throw new NotImplementedException("Part A: implement PeekLastRemovedRecipe.");
