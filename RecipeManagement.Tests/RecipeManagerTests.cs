@@ -9,7 +9,7 @@ namespace RecipeManagement.Tests;
 /// </summary>
 public sealed class RecipeManagerTests
 {
-    // my own tests
+    // my own tests PartA Phase 1
     [Fact]
     public void AddRecipeThatIsIDIsValid()
     {
@@ -60,7 +60,6 @@ public sealed class RecipeManagerTests
         Assert.Equal(2,manager.RecipeCount);
     }
 
-    
     [Fact]
     public void AddIngredients()
     {
@@ -85,6 +84,7 @@ public sealed class RecipeManagerTests
         Assert.Equal(0,conut);
     }
 
+    // PartA Phase 2
     [Fact]
     public void AddRecipeToCookingPlan_WithValidRecipe()
     {
@@ -167,6 +167,42 @@ public sealed class RecipeManagerTests
         Assert.Null(manager.PeekLastRemovedRecipe());
     }
 
+    [Fact]
+    public void StartCooking_validRecipe()
+    {
+        var manager = CreateManager(); 
+
+        Assert.True(manager.StartCooking(10));
+        Assert.Equal(2,manager.pendingInstructions.Count);
+    }
+
+    [Fact]
+    public void StartCooking_InvalidRecipe()
+    {
+        var manager = CreateManager(); 
+
+        Assert.False(manager.StartCooking(30));
+    }
+
+    [Fact]
+    public void PeekNextInstruction_NotEmpty()
+    {
+        var manager = CreateManager(); 
+        manager.StartCooking(10);
+        manager.CompleteNextInstruction();
+        Assert.Equal("Second step",manager.PeekNextInstruction());
+    }
+
+    [Fact]
+    public void PeekNextInstruction_IsEmpty()
+    {
+        var manager = CreateManager(); 
+        manager.StartCooking(10);
+        manager.CompleteNextInstruction();
+        manager.CompleteNextInstruction();
+        Assert.Null(manager.PeekNextInstruction());
+    }
+    
 
     // Provided tests
     [Fact]
