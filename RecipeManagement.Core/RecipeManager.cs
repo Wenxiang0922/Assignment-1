@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
+using System.Linq;
+using System.Collections;
 
 namespace RecipeManagement.Core;
 
@@ -43,9 +46,34 @@ public sealed class RecipeManager : IRecipeManager
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
-        _ = recipes;
+        if (recipes == null)
+        {
+            throw new ArgumentNullException(nameof(recipes));
+        }
+
         foreach (Recipe r in recipes)
         {
+            if (r == null)
+            {
+                throw new ArgumentException(
+                    "A recipe can not be empty",
+                    nameof(recipes));
+            }
+
+            if (r.Id <= 0)
+            {
+                throw new ArgumentException(
+                    "The recipe ID must be greater than 0",
+                    nameof(recipes));
+            }
+
+            if (_recipe.ContainsKey(r.Id))
+            {
+                throw new ArgumentException(
+                $"This ID ${r.Id} alredy exit",
+                nameof(recipes));
+            }
+
             _recipe.Add(r.Id,r);
         }
     }
@@ -217,12 +245,20 @@ public sealed class RecipeManager : IRecipeManager
         return null;
     }
 
-    public IReadOnlyList<Recipe> SearchByTitle(string searchText) =>
-        throw new NotImplementedException("Part B: implement SearchByTitle.");
+    public IReadOnlyList<Recipe> SearchByTitle(string searchText)
+    {
+        return _recipe.Values
+        .Where(recipe => 
+        recipe.Title.Contains(searchText,StringComparison.OrdinalIgnoreCase))
+        .ToList();
+    }
 
-    public IReadOnlyList<Recipe> SearchByIngredient(string searchText) =>
-        throw new NotImplementedException("Part B: implement SearchByIngredient.");
-
+    public IReadOnlyList<Recipe> SearchByIngredient(string searchText)
+    {
+        return _recipe.Values
+        .Where(r => r.Ingredients.Any(I => I.Contains(searchText,StringComparison.OrdinalIgnoreCase)))
+        .ToList();
+    }
     public IReadOnlyList<Recipe> GetHighestProteinRecipes(int count) =>
         throw new NotImplementedException("Part B: implement GetHighestProteinRecipes.");
 
