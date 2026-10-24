@@ -70,8 +70,8 @@ public sealed class RecipeManager : IRecipeManager
             if (_recipe.ContainsKey(r.Id))
             {
                 throw new ArgumentException(
-                $"This ID ${r.Id} alredy exit",
-                nameof(recipes));
+                    $"This ID ${r.Id} alredy exit",
+                    nameof(recipes));
             }
 
             _recipe.Add(r.Id,r);
@@ -89,11 +89,27 @@ public sealed class RecipeManager : IRecipeManager
         // Don take the recipe if the recipe is already in the _recipe dictionary
         if (_recipe.ContainsKey(recipe.Id))
         {
-            return false;
+            throw new ArgumentException(
+                "This ID already exist",
+                nameof(recipe));
         }
+        if(recipe == null)
+        {
+            throw new ArgumentNullException(
+                "A recipe can not be empty",
+                nameof(recipe)
+            );
+        }
+        if (recipe.Id <= 0)
+        {
+            throw new ArgumentException(
+                "The recipe ID have to be greater than 0",
+                nameof(recipe)
+            );
+        }
+
         else
         {   
-            // add a recipe that have a valid id 
             return _recipe.TryAdd(recipe.Id,recipe);
         }
     }
