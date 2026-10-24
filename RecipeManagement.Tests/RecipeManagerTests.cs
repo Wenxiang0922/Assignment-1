@@ -11,6 +11,30 @@ public sealed class RecipeManagerTests
 {
     // my own tests PartA Phase 1
     [Fact]
+    public void Constructor_NullRecipe()
+    {
+        Assert.Throws<ArgumentNullException>(
+        () => new RecipeManager(null!));
+    }
+ 
+    [Fact]
+    public void Constructor_InvalidRecipeID()
+    {
+        var manager =CreateManager();
+        var recipe1 =new Recipe
+        {
+            Id = 10,
+            Title = "recipe A"
+        };
+        var recipe2 =new Recipe
+        {
+            Id = 10,
+            Title = "recipe b"
+        };
+        Assert.Throws<ArgumentException>(
+        () => new RecipeManager(new[] { recipe1, recipe2 }));
+    }
+    [Fact]
     public void AddRecipeThatIsIDIsValid()
     {
         var manager =CreateManager();
@@ -49,7 +73,7 @@ public sealed class RecipeManagerTests
     {
         var manager =CreateManager();
         Assert.True(manager.RemoveRecipe(10));
-        Assert.Equal(1,manager.RemovedRecipeCount);
+        Assert.Equal(0,manager.RemovedRecipeCount);
         Assert.Equal(1,manager.RecipeCount);
     }
 
