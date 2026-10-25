@@ -27,20 +27,16 @@ public sealed class RecipeManager : IRecipeManager
     public List<string> shoppingList
     {
         get {return _ShoppingList;}  
-        set { _ShoppingList = value;}
     }
 
     public LinkedList<int> cookingPlan
     {
         get {return _CookingPlan;}  
-        set { _CookingPlan = value;}
     }
-
 
     public Queue<string> pendingInstructions
     {
         get {return _PendingInstructions;}  
-        set { _PendingInstructions = value;}
     }
 
     public RecipeManager(IEnumerable<Recipe> recipes)
@@ -263,10 +259,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText)
     {
-        return _recipe.Values
-        .Where(recipe => 
-        recipe.Title.Contains(searchText,StringComparison.OrdinalIgnoreCase))
-        .ToList();
+
     }
 
     public IReadOnlyList<Recipe> SearchByIngredient(string searchText)
