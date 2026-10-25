@@ -259,7 +259,10 @@ public sealed class RecipeManager : IRecipeManager
 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText)
     {
-
+        return _recipe.Values
+        .Where(r => 
+        r.Title.Contains(searchText,StringComparison.OrdinalIgnoreCase))
+        .ToList();
     }
 
     public IReadOnlyList<Recipe> SearchByIngredient(string searchText)
