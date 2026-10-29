@@ -1,11 +1,13 @@
+# AI acknowledgement
+AI acknowledgement: I did not use generative AI in the preparation of this assignment.
+
 # Design
 
 Complete this document for **Part B**.
 
 ## 1. Saved recipe collection
-hashset<int> was selected for the saved/favourite feature and it is named _SavedRecipes. Add(recipeid) adds a recipe ID to the collection and hashset prevent duplicates, if the user add the same recipeid to the collection 
+hashset<int> was selected for the saved/favourite feature and it is named _SavedRecipes. Add(recipeid) adds a recipe ID to the collection and hashset prevent duplicates, if the user add the same recipeid to the collection the function will return a flase. Remove is the same method: Remove(recipeid), but it is quicker than array and list, because it use hash table data and perform insert, remove, and look up in constant time O(1). 
 
-Name the C# collection you selected for the saved/favourite feature and explain why it suits add, remove, duplicate prevention and membership checks.
 
 ## 2. Integration
 
@@ -21,8 +23,4 @@ In a short paragraph, explain how the new Part B features use the existing Part 
 | LINQ title/ingredient search | Recipe collection | O(n) | Each recipe may need to be inspected. |
 | Check whether a recipe is saved | Your chosen collection | | Explain how your collection performs membership checks. |
 
-
-
-hash impove the speed of getting values than a list and arrays 
-hashset do not stroe any kind of duplicates 
 

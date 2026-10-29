@@ -273,7 +273,7 @@ public sealed class RecipeManagerTests
                 Id = 10,
                 Title = "Recipe A",
                 Ingredients = new() { "1 apple" },
-                Instructions = new() { "First step", "Second step" }
+                Instructions = new() { "First step", "Second step" },
             },
             new Recipe
             {
@@ -348,5 +348,22 @@ public sealed class RecipeManagerTests
         Assert.Empty(result);  
     }
     
+    // GetHighestProteinRecipes
+    [Fact] 
+    public void GetHighestProteinRecipesReturnsEmpty()
+    {
+        var manager = CreateManager();
 
+        var result = manager.GetHighestProteinRecipes(0);
+        Assert.Empty(result);  
+    }
+    [Fact] 
+    public void GetHighestProteinRecipesNegetiveCounts()
+    {
+        var manager = CreateManager();
+
+        var result = manager.GetHighestProteinRecipes(-1);
+        Assert.Empty(result);  
+    }
+    
 }
