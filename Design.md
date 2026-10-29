@@ -26,9 +26,3 @@ In a short paragraph, explain how the new Part B features use the existing Part 
 hash impove the speed of getting values than a list and arrays 
 hashset do not stroe any kind of duplicates 
 
-    // Part B tests
-    [Fact]
-    public void ()
-    {
-
-    }

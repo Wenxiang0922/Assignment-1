@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using RecipeManagement.Core;
 
 namespace RecipeManagement.Tests;
@@ -280,5 +282,40 @@ public sealed class RecipeManagerTests
             }
         });
     }
+
+    // Part B tests
+    // SearchByTitle
+    [Fact]
+    public void SearchExactTitle()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByTitle("Recipe A");
+        Assert.Single(result);
+        Assert.Equal("Recipe A",result[0].Title);
+
+    }
+
+    [Fact]
+    public void SearchTitleNoneCaseSensitive()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByTitle("RECIPE b");
+        Assert.Single(result);
+        Assert.Equal("Recipe B",result[0].Title);
+
+    }
+
+    [Fact] 
+    public void SearchTitleNotExist()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByTitle("Sth that doesnt exit");
+        Assert.Empty(result);  
+    }
+
+    
 
 }
