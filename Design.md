@@ -11,7 +11,7 @@ hashset<int> was selected for the saved/favourite feature and it is named _Saved
 
 ## 2. Integration
 
-In a short paragraph, explain how the new Part B features use the existing Part A `RecipeManager` and recipe catalogue.
+Part B extend on part A code RecipeManager. Reusing the RecipeManager catalogue instead of creating a separete one. It still use the Part A data structure but introduced a new data strcuture(hashset) for Saved/Favourite feature. The RecipeManager checks if the recipe Id exits in the catalog and then saves it. When displaying, the RecipeManager get a list of Id(s) for the hashset that i created and finds the coresponding recipe title to display.
 
 ## 3. Basic complexity
 
@@ -21,6 +21,6 @@ In a short paragraph, explain how the new Part B features use the existing Part 
 | Traverse cooking plan | LinkedList | O(n) | Each planned recipe may need to be visited. |
 | Complete next instruction | Queue | O(1) | The item at the front is removed. |
 | LINQ title/ingredient search | Recipe collection | O(n) | Each recipe may need to be inspected. |
-| Check whether a recipe is saved | Your chosen collection | | Explain how your collection performs membership checks. |
+| Check whether a recipe is saved | Hashset<int> | | O(1) | Hash-based membership checks using Contains(); the set stores unique recipe IDs. |
 
 
