@@ -22,6 +22,7 @@ public sealed class RecipeManager : IRecipeManager
     private LinkedList<int> _CookingPlan = new LinkedList<int>();
     private Stack<int> _RemovedCookingRecipes = new Stack<int>();
     private Queue<string> _PendingInstructions = new Queue<string>();
+    private HashSet<int> _SavedRecipes = new HashSet<int>();
 
     //Properties
     public List<string> shoppingList
@@ -268,7 +269,8 @@ public sealed class RecipeManager : IRecipeManager
     public IReadOnlyList<Recipe> SearchByIngredient(string searchText)
     {
         return _recipe.Values
-        .Where(r => r.Ingredients.Any(I => I.Contains(searchText,StringComparison.OrdinalIgnoreCase)))
+        .Where(r => r.Ingredients
+        .Any(I => I.Contains(searchText,StringComparison.OrdinalIgnoreCase)))
         .ToList();
     }
 
@@ -284,11 +286,31 @@ public sealed class RecipeManager : IRecipeManager
          
     }
 
-    public bool AddSavedRecipe(int recipeId) =>
-        throw new NotImplementedException("Part B: implement AddSavedRecipe.");
+    public bool AddSavedRecipe(int recipeId)
+    {   
+        if (_recipe.ContainsKey(recipeId))
+        {
+            _SavedRecipes.Add(recipeId);
+            return true;
+        }
+        else
+        {
+           return false; 
+        }
+    }
 
-    public bool RemoveSavedRecipe(int recipeId) =>
-        throw new NotImplementedException("Part B: implement RemoveSavedRecipe.");
+    public bool RemoveSavedRecipe(int recipeId)
+    {
+        if (_SavedRecipes.Contains(recipeId))
+        {
+            _SavedRecipes.Remove(recipeId);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public bool IsRecipeSaved(int recipeId) =>
         throw new NotImplementedException("Part B: implement IsRecipeSaved.");
