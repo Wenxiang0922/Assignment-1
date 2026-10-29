@@ -365,5 +365,35 @@ public sealed class RecipeManagerTests
         var result = manager.GetHighestProteinRecipes(-1);
         Assert.Empty(result);  
     }
+
+    // AddSavedRecipe
+    [Fact] 
+    public void AddRecipeWithvalidID()
+    {
+        var manager = CreateManager();
+
+        var result = manager.AddSavedRecipe(10);
+        Assert.True(result);  
+    }
+
+    [Fact] 
+    public void AddRecipeWithInvalidID()
+    {
+        var manager = CreateManager();
+
+        var result = manager.AddSavedRecipe(999);
+        Assert.False(result);  
+    }
+
+    [Fact] 
+    public void AddRecipeWithDuplicatedID()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+
+        var result = manager.AddSavedRecipe(10);
+        Assert.False(result);  
+    }
+
     
 }
