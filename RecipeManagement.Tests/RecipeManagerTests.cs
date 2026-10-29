@@ -316,6 +316,37 @@ public sealed class RecipeManagerTests
         Assert.Empty(result);  
     }
 
+    // SearchByIngredient
+    [Fact]
+    public void SearchExactIngredient()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByIngredient("apple");
+        Assert.Single(result);
+        Assert.Equal("Recipe A",result[0].Title);
+
+    }
+
+    [Fact]
+    public void SearchIngredientNoneCaseSensitive()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByIngredient("APPLE");
+        Assert.Single(result);
+        Assert.Equal("Recipe A",result[0].Title);
+
+    }
+
+    [Fact] 
+    public void SearchIngredientNotExist()
+    {
+        var manager = CreateManager();
+
+        var result = manager.SearchByIngredient("Ingredient that doesnt exit");
+        Assert.Empty(result);  
+    }
     
 
 }
