@@ -292,13 +292,13 @@ public sealed class RecipeManager : IRecipeManager
             Console.WriteLine("Invalide recipe ID");
             return false; 
         }
-        if (_SavedRecipes.Contains(recipeId))
-        {
+        else
+        {   
             Console.WriteLine("The recipe is already saved");
-            return false;
+            // The hashset return True if the recipe is not duplicated, vice versa
+            return _SavedRecipes.Add(recipeId);
         }
-        _SavedRecipes.Add(recipeId);
-        return true;
+    
     }
 
     public bool RemoveSavedRecipe(int recipeId)

@@ -3,7 +3,7 @@
 Complete this document for **Part B**.
 
 ## 1. Saved recipe collection
-hashset<int> was selected for the saved/facourite feature and it is named _SavedRecipes. 
+hashset<int> was selected for the saved/favourite feature and it is named _SavedRecipes. Add(recipeid) adds a recipe ID to the collection and hashset prevent duplicates, if the user add the same recipeid to the collection 
 
 Name the C# collection you selected for the saved/favourite feature and explain why it suits add, remove, duplicate prevention and membership checks.
 
@@ -25,3 +25,10 @@ In a short paragraph, explain how the new Part B features use the existing Part 
 
 hash impove the speed of getting values than a list and arrays 
 hashset do not stroe any kind of duplicates 
+
+    // Part B tests
+    [Fact]
+    public void ()
+    {
+
+    }
