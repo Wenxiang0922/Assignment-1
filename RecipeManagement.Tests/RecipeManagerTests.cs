@@ -414,5 +414,25 @@ public sealed class RecipeManagerTests
         var result = manager.RemoveSavedRecipe(10);
         Assert.True(result); 
     }
+
+    // IsRecipeSaved
+    [Fact] 
+    public void IsRecipeSavedTrue()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+
+        var result = manager.IsRecipeSaved(10);
+        Assert.True(result); 
+    }
+
+    [Fact] 
+    public void IsRecipeSavedFalse()
+    {
+        var manager = CreateManager();
+
+        var result = manager.IsRecipeSaved(10);
+        Assert.False(result); 
+    }
     
 }
