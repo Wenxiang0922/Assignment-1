@@ -294,8 +294,9 @@ public sealed class RecipeManager : IRecipeManager
             return true;
         }
         else
-        {
-           return false; 
+        {   
+            Console.WriteLine("Invalide recipe ID");
+            return false; 
         }
     }
 
@@ -308,6 +309,7 @@ public sealed class RecipeManager : IRecipeManager
         }
         else
         {
+            Console.WriteLine("This recipe ID was not found in your saved list");
             return false;
         }
     }
