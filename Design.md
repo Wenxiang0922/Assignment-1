@@ -3,6 +3,7 @@
 Complete this document for **Part B**.
 
 ## 1. Saved recipe collection
+hashset<int> was selected for the saved/facourite feature and it is named _SavedRecipes. 
 
 Name the C# collection you selected for the saved/favourite feature and explain why it suits add, remove, duplicate prevention and membership checks.
 

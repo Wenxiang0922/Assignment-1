@@ -87,9 +87,7 @@ public sealed class RecipeManager : IRecipeManager
         // Don take the recipe if the recipe is already in the _recipe dictionary
         if (_recipe.ContainsKey(recipe.Id))
         {
-            throw new ArgumentException(
-                "This ID already exist",
-                nameof(recipe));
+            return false;
         }
         if(recipe == null)
         {
@@ -289,16 +287,18 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool AddSavedRecipe(int recipeId)
     {   
-        if (_recipe.ContainsKey(recipeId))
-        {
-            _SavedRecipes.Add(recipeId);
-            return true;
-        }
-        else
+        if (!_recipe.ContainsKey(recipeId))
         {   
             Console.WriteLine("Invalide recipe ID");
             return false; 
         }
+        if (_SavedRecipes.Contains(recipeId))
+        {
+            Console.WriteLine("The recipe is already saved");
+            return false;
+        }
+        _SavedRecipes.Add(recipeId);
+        return true;
     }
 
     public bool RemoveSavedRecipe(int recipeId)
