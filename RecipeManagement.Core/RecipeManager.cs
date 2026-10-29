@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
 using System.Linq;
 using System.Collections;
+using System.Threading.Tasks.Dataflow;
 
 namespace RecipeManagement.Core;
 
@@ -314,8 +315,22 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public bool IsRecipeSaved(int recipeId) =>
-        throw new NotImplementedException("Part B: implement IsRecipeSaved.");
+    public bool IsRecipeSaved(int recipeId)
+    {   
+        if (_SavedRecipes.Contains(recipeId))
+        {   
+            return true;
+        }
+        else if (_SavedRecipes.Count== 0)
+        {   
+            Console.WriteLine("The save list is empty");
+            return false;
+        }
+        else
+        {   
+            return false;
+        }
+    }
 
     public IReadOnlyList<int> GetSavedRecipes() =>
         throw new NotImplementedException("Part B: implement GetSavedRecipes.");
